@@ -6,8 +6,18 @@ if [ "$1" == 'revert' ]
 then
     echo Revert action to "$version"
 else
+    echo Branch what you want?
+    read branch
+    if [ -z branch ]
+    then
+        branch='master'
+    else
+        branch="$branch"
+    fi
+    cd "$PROJECT"/release/master && git checkout "$branch" && git pull --rebase origin "$branch"
+    cd "$PROJECT"
     cp -R "$PROJECT"/release/master "$PROJECT"/release/"$version"
-    cd "$PROJECT"/release/"$version" && rm -rfv .git .nuxt node_modules ecosystem.config.js
+    cd "$PROJECT"/release/"$version" && rm -rf .git .nuxt node_modules ecosystem.config.js
     npm ci
     npm run build
     cd "$PROJECT"
