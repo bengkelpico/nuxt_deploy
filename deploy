@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 PROJECT="$(pwd)"
 echo Version what you want?
 read version
