@@ -1,15 +1,15 @@
 module.exports = {
   apps: [
     {
-      name: 'dokternet',
+      name: 'prod',
 
-      // args: 'one two',
-      instances: 'max',
+      cwd: './current',
+      script: './node_modules/.bin/nuxt',
+      args: 'start',
+      instances: 'start',
       autorestart: true,
       watch: false,
       max_memory_restart: '256M',
-      cwd: './current',
-      script: './node_modules/nuxt/bin/nuxt-start',
       env: {
         NODE_ENV: 'production'
       }

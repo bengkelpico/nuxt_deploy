@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+PROJECT="$(pwd)"
+echo Version what you want?
+read version
+if [ "$1" == 'revert' ]
+then
+    echo Revert action to "$version"
+else
+    cp -R "$PROJECT"/release/master "$PROJECT"/release/"$version"
+    cd "$PROJECT"/release/"$version" && rm -rfv .git .nuxt node_modules ecosystem.config.js
+    npm ci
+    npm run build
+    cd "$PROJECT"
+fi
+rm current
+ln -s "$PROJECT"/release/"$version" "$PROJECT"/current
+pm2 startOrReload ecosystem.config.js
